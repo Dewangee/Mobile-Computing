@@ -6,6 +6,7 @@ import android.app.ProgressDialog;
 import android.app.Service;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
@@ -33,7 +34,7 @@ public class MainActivity extends AppCompatActivity {
      File gl;
     private ProgressDialog mProgressDialog;
     public static final int DIALOG_UPLOAD_PROGRESS = 0;
-
+    private Boolean firstTime = null;
 
     DatabaseHelper db;
 
@@ -49,8 +50,24 @@ public class MainActivity extends AppCompatActivity {
         FragmentManager manager = getSupportFragmentManager();
         FragmentTransaction transaction = manager.beginTransaction();
         transaction.hide(manager.findFragmentById(R.id.detail_frag)).commit();
+
+        if (isFirstTime()==true){
+            db.addQuestions();
+        }
     }
 
+    private boolean isFirstTime() {
+        if (firstTime == null) {
+            SharedPreferences mPreferences = this.getSharedPreferences("first_time", Context.MODE_PRIVATE);
+            firstTime = mPreferences.getBoolean("firstTime", true);
+            if (firstTime) {
+                SharedPreferences.Editor editor = mPreferences.edit();
+                editor.putBoolean("firstTime", false);
+                editor.commit();
+            }
+        }
+        return firstTime;
+    }
 
     public ArrayList<Question> getList() {
         db = new DatabaseHelper(this);
@@ -100,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
             exportDir.mkdirs();
         }
 
-        File file = new File(exportDir, "Result.csv");
+        File file = new File(exportDir, "Quiz_Result.csv");
         try {
             file.createNewFile();
             CSVWriter csvWrite = new CSVWriter(new FileWriter(file));
