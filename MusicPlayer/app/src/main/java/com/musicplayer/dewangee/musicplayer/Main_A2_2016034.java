@@ -14,15 +14,16 @@ import java.net.URL;
 
 public class Main_A2_2016034 extends AppCompatActivity {
 
+    Bootcompleted breceiver = new Bootcompleted();
+    Airplane areceiver =new Airplane();
+    PowerConnected preceiver=new PowerConnected();
+
     @Override
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main__a2_2016034);
 
-        Bootcompleted breceiver = new Bootcompleted();
-        Airplane areceiver =new Airplane();
-        PowerConnected preceiver=new PowerConnected();
 
 
         this.registerReceiver(breceiver,new IntentFilter(Intent.ACTION_BOOT_COMPLETED));
@@ -52,4 +53,13 @@ public class Main_A2_2016034 extends AppCompatActivity {
         }
     }
 
+    @Override
+    protected void onPause() {
+
+        unregisterReceiver( breceiver);
+        unregisterReceiver(areceiver);
+        unregisterReceiver(preceiver);
+
+        super.onPause();
+    }
 }

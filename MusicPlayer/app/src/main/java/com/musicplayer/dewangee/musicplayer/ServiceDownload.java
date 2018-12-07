@@ -7,6 +7,9 @@ import android.os.AsyncTask;
 import android.os.IBinder;
 import android.util.Log;
 import android.widget.Toast;
+
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -57,26 +60,52 @@ public class ServiceDownload extends Service {
             protected String doInBackground(String... strings) {
                 try {
                     InputStream is = null;
-                    OutputStream out = null;
-                    int a=20;
-                    if(a==0){
-                        a++;
-                    }
+
+
                     int len = 100000000;
                     try {
                         java.net.URL url = new URL("http://faculty.iiitd.ac.in/~mukulika/s1.mp3");
                         HttpURLConnection connectiondone = (HttpURLConnection) url.openConnection();
+                        Log.i("Download", "Connection opened");
                         connectiondone.connect();
+                        Log.i("Download", "Connected to server");
                         is = connectiondone.getInputStream();
 
+                        Log.i("Download", "Song downloaded");
 
-                        String Value = readIt(is, len);
+                        String FILENAME = "downloadedsong.mp3";
+                       String Value = readIt(is, len);
+                      FileOutputStream out = null;
+
+
+                        try{
 
                         out = openFileOutput(FILENAME, Context.MODE_PRIVATE);
-
+                         Log.i("Download", "Downloaded song saved to file");
                         out.write(Value.getBytes());
-
+                        Log.i("Download","Downloaded written");
                         out.close();
+                        }
+                        catch(Exception e){
+
+                        }
+//                            int count;
+//                        File file = new File(getFilesDir(),FILENAME);
+//                        out = new FileOutputStream(file);
+//                        byte data[] = new byte[1024];
+//
+//                        long total = 0;
+//
+//                        while ((count = is.read(data)) != -1) {
+//                            total += count;
+//
+//                            out.write(data, 0, count);
+//                        }
+//                        out.flush();
+//                        out.close();
+//
+
+
 
                         return Value;
 
@@ -93,7 +122,9 @@ public class ServiceDownload extends Service {
             }
             @Override
             protected void onPostExecute(String s) {
+
                 super.onPostExecute(s);
+                Log.i("Download", "onPostExecute run");
             }
 
         }

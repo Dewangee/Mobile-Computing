@@ -32,9 +32,11 @@ public class MusicList extends Fragment {
         Namearray.add("One more night");
         Namearray.add("Wake me up");
         Namearray.add("Pumped up kicks");
+       // Namearray.add("songname");
         Rawarray.add(R.raw.one_more_night);
         Rawarray.add(R.raw.wake_me_up);
         Rawarray.add(R.raw.pumped_up_kicks);
+       // Rawarray.add(R.raw.songname);
 
 
 

@@ -6,6 +6,7 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.widget.Toast;
 
 public class Datafil extends Service{
@@ -27,21 +28,15 @@ public class Datafil extends Service{
 
         Bundle bundle=intent.getExtras();
         int rawval=bundle.getInt("SongMusic");
-        int a=20;
-        if(a==0){
-            a++;
-        }
+        Log.i("check", "123123123");
         mediaPlayer = MediaPlayer.create(this,rawval);
 
-        if(a==0){
-            a++;
-        }
 
         if (mediaPlayer.isPlaying()){
-            a++;
         }
         else{
             mediaPlayer.start();
+            Log.i("check", "1231123");
         }
 
         return START_STICKY;

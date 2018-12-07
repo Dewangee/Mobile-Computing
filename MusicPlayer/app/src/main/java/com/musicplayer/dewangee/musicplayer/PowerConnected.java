@@ -11,5 +11,6 @@ public class PowerConnected extends BroadcastReceiver {
     {
         String val=intent.getAction();
         Toast.makeText(context,val,Toast.LENGTH_SHORT).show();
+        Log.i("charge" ,"123");
     }
 }

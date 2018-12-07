@@ -3,6 +3,7 @@ package com.musicplayer.dewangee.musicplayer;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,12 +64,13 @@ public class Song extends BaseAdapter {
         @Override
         public View getView(int i, View view, ViewGroup viewGroup)
         {
-            lay=new Checkii();
+            final Checkii lay;
             if(view!=null) {
                 lay = (Checkii) view.getTag();
             }
            else
             {
+                lay  =new Checkii();
 
                 LayoutInflater layoutInflater= (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
@@ -101,6 +103,7 @@ public class Song extends BaseAdapter {
                 @Override
                 public void onClick(View v) {
 
+                    Log.i("check", "12345");
                     context.stopService(in);
 
                 }
@@ -109,6 +112,7 @@ public class Song extends BaseAdapter {
             lay.play.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
+                    Log.i("check", "123444565");
 
                     in.putExtras(bundle);
                     context.startService(in);
